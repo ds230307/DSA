@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main (){
+int num, bin=0, place=1;
+printf("Enter number");
+scanf("%d", &num);
+int num1=num;
+while(num!=0){
+int rem = num%16;
+bin = bin + rem*place;
+num = num/16;
+place = place*10;
+}
+printf("Binary  %d is %d", num1, bin);
+return 0;
+}
