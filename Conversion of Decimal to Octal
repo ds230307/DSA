@@ -11,6 +11,6 @@ bin = bin + rem*place;
 num = num/8;
 place = place*10;
 }
-printf("Binary  %d is %d", num1, bin);
+printf("Octal of %d is %d", num1, bin);
 return 0;
 }
