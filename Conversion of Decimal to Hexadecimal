@@ -1,16 +1,33 @@
 #include<stdio.h>
 int main (){
-int num, bin=0, place=1;
-char hexnum[50];
+int num;
+char hexa[50]"";
 printf("Enter number");
 scanf("%d", &num);
 int num1=num;
+// logic
 while(num!=0){
 int rem = num%16;
-bin = bin + rem*place;
+char str[2];
+if(rem>=0 && rem<=9)
+sprintf(str, "%d", rem);(sprintf is used to write a formatted output into the string in built in stdio.h)
+else if(rem == 10)
+str[0] = 'A';
+else if(rem == 11)
+str[0] = 'B';
+else if(rem == 12)
+str[0] = 'C';
+else if(rem == 13)
+str[0] = 'D';
+else if(rem == 14)
+str[0] = 'E';
+else
+str[0] = 'F';
+str[1] = '\0';
+strcat(hexa, str);
 num = num/16;
-place = place*10;
 }
-printf("Binary  %d is %d", num1, bin);
+strrev(hexa);
+printf("Hexadecimal of %d is %s", num1, hexa);
 return 0;
 }
