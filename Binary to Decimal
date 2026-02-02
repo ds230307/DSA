@@ -1,0 +1,18 @@
+#include<stdio.h>
+int main (){
+    int num;
+    printf("Enter Binary Number:");
+    scanf("%d", &num);
+    int decnum = 0, base =1; // pos=0
+    while(num!=0){
+        int rem = num%10;
+        decnum+=rem*base; // without loop
+        base*=2;
+        decnum+=rem*pow(2, pos); // with loop
+        pos++
+        num /=10;
+    }
+    printf("Decimal = %d", decnum);
+    return 0;
+                                              
+}
