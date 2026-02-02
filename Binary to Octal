@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int convertbinarytodecimal(int binnum) {
+    int decnum = 0;
+    int base = 1;
+
+    while (binnum != 0) {
+        int rem = binnum % 10;
+        decnum += rem * base;
+        base *= 2;
+        binnum /= 10;
+    }
+    return decnum;
+}
+
+int main() {
+    int num;
+    printf("Enter binary number: ");
+    scanf("%d", &num);
+
+    int octal = 0, place = 1;
+
+    while (num != 0) {
+        int rem = num % 1000;                // take 3 binary digits
+        int d = convertbinarytodecimal(rem); // convert to decimal
+        octal += d * place;
+        num /= 1000;
+        place *= 10;
+    }
+
+    printf("Octal = %d\n", octal);
+    return 0;
+}
