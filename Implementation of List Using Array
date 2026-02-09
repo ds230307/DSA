@@ -1,18 +1,18 @@
 #include<stdio.h>
 #define MAX 100 // stores maximum size
 int list[MAX]; //global declaration
-int size = 0;
+int n = 0;
 void insertinbeginning(int value){ // cases: list is empty,non-empty(full)
-    if(size > MAX){
+    if(n > MAX){
         printf("List is Full!!!");
         return;
     }
     int i;   // outside the loop because we need to access it later
-    for(i = size; i>0; i--){   // traverse the array in reverse order and shift elements towards right side
+    for(i = n; i>0; i--){   // traverse the array in reverse order and shift elements towards right side
         list[i] = list[i-1];
     } 
     list[i] = value;
-    size++;
+    n++;
     printf("Element Inserted In Beginning !!\n");
 }
 int main (){
