@@ -3,17 +3,51 @@
 int list[MAX]; //global declaration
 int n = 0;
 void insertinbeginning(int value){ // cases: list is empty,non-empty(full)
-    if(n > MAX){
+    if(n >= MAX){
         printf("List is Full!!!");
         return;
     }
-    int i;   // outside the loop because we need to access it later
-    for(i = n; i>0; i--){   // traverse the array in reverse order and shift elements towards right side
-        list[i] = list[i-1];
-    } 
-    list[i] = value;
+    for( int i = n-1; i>=0; i--){   // traverse the array in reverse order and shift elements towards right side
+    list[i+1] = list[i];
+    }
+    list[0] = value;
     n++;
     printf("Element Inserted In Beginning !!\n");
+}
+void insertatend(int value){
+    if(n == MAX){
+        printf("List is Full");
+        return;
+    }
+    list[n++] = value;
+    printf("Element Inserted!!\n");
+}
+void insertatposition(int pos, int value){
+    if(n == MAX){
+        printf("List is Full !!!");
+    }
+    else if(pos < 0 || pos>=n)
+        printf("Invalid position!!!\n");
+    else {
+        for(int i=n-1; i>=pos; i--){
+            list[i+1] = list[i];
+        }
+        list[pos] = value;
+        n++;
+        printf("Elemented Inserted!!!\n");
+    }
+
+}
+
+void displaylist(){
+    if(n == 0){
+        printf("List is Empty !!\n");
+        return;
+    }
+    for(int i=0; i<n; i++){
+        printf("%d\t", list[i]);
+    }
+    printf("\n");
 }
 int main (){
     while(1){
@@ -28,15 +62,25 @@ int main (){
         printf("9.Update list Element\n");
         printf("10.Sort Element of List\n");
         printf("11.Exit\n");
-        int choice;
+        int choice, data, pos;
         printf("Enter Choice:");
         scanf("%d", &choice);
         switch(choice){
             case 1:
+                printf("Enter data:");
+                scanf("%d", &data);
+                insertinbeginning(data);
                 break;
             case 2:
+                printf("Enter data:");
+                scanf("%d", &data);
+                insertatdne(data);
                 break;
             case 3:
+                printf("Enter position:");
+                scanf("%d", &pos);
+                scanf("%d", &data);
+                insertinbeginning( pos, data);
                 break;
             case 4:
                 break;
@@ -45,6 +89,7 @@ int main (){
             case 6:
                 break;
             case 7:
+                displaylist();
                 break;
             case 8:
                 break;
@@ -58,5 +103,7 @@ int main (){
         
 
     }
+    return 0;
     
+}
 }
