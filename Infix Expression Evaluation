@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+#include<ctype.h>
+int operand[100];
+char operator[100];
+int top1 = -1, top2 = -1;
+
+int precedence(char op){
+    switch(op){
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+        default:
+            return 0;
+    }
+}
+void doProcess(){
+    int x = operand[top1--];  // pop top 2 values from operand stack
+    int y = operand[top1--];
+    char op = operator[top2--];
+    int z;
+    switch(op){
+        case '+':
+            z = y + x;    // beacuse operation will be performed left to right, second poped value will be used.
+            break;
+        case '-':
+            z = y - x;
+            break;
+        case '*':
+            z = y * x;
+            break;
+        case '/':
+            z = y / x;
+            break;
+        case '^':
+            z = (int) pow(y, x);  // int is used for double specification of the value as it can be changed while multiple iterations
+            break;
+    }
+    operand[++top1] = z;
+}
+int evalInfixExpression(char* exp){   // pointer will be passed because string is a built in array.
+    for(int i=0; i<strlen(exp); i++){
+        char ch = exp[i];   // nickname
+        if(isdigit(ch)){
+            operand[++top1] = ch - '0';
+        }
+        else if(ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='^'){
+            if(top2 == -1)
+                operator[++top2] = ch;
+            else{
+                while(top2 != -1 && precedence(ch)<precedence(operator[top2])){   // same precedence:right to left(for power)
+                    doProcess();
+                }
+                operator[++top2] = ch;
+            }
+        }
+        else if(ch=='('){
+            operator[++top2] = ch;
+        }
+        else if(ch==')'){
+            while(operator[top2] != '('){
+                doProcess();
+
+            }
+            top2--;
+        }
+    }
+    while(top2 != -1){
+        doProcess();
+    }
+    return operand[top1--];
+}
+int main (){
+    char expr[100];
+    printf("Infix Expression:");
+    gets(expr);
+    int result = evalInfixExpression(expr);
+    printf("Result of Expression %s = %d\n", expr, result);
+    return 0;
+}
