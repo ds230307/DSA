@@ -98,7 +98,7 @@ int evalPostfixExpression(char* exp){
         else if(exp[i]=='+' || exp[i]=='-' || exp[i]=='*' || exp[i]=='/' || exp[i]=='^'){
             int x = operand[top1--];  
             int y = operand[top1--];
-            char op = operator[top1--];
+            char op = operand[top1--];
             int z;
             switch(exp[i]){
             case '+':
