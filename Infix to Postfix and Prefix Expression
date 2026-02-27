@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<string.h>
+int precedence(char opr){
+    switch(opr){
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+        default:
+            return 0;
+    }
+}
+char* convertInfixtoPostfix(char* infixExp){
+    int len = strlen(infixExp), top = -1, x = 0;   // x is position for ouput string data.
+    char *postfix = (char*) malloc(len+1);    // run time array for more scope and +1 for null character.
+    char operator[len];
+    for(int i=0; i<len; i++){
+        char ch = infixExp[i];     // nickname
+        if(isalnum(ch)){
+            postfix[x++] = ch;
+        }
+        else if(ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='^'){
+            while(top != -1 && precedence(ch)<=precedence(operator[top]) && ch != '^'){
+                postfix[x++] = operator[top--];
+            }
+            operator[++top] = ch;
+        }
+        else if(ch=='('){
+            operator[++top] = ch;
+        }
+        else if(ch==')'){
+            while(operator[top] != '('){     // pop until open bracket comes and then pop both brackets.
+                postfix[x++] = operator[top--];
+            }
+            top--;
+        }
+    }
+    while(top != -1){
+        postfix[x++] = operator[top--];
+    }
+        postfix[x] = '\0';
+        return postfix;
+    
+}
+int main(){
+    char expr[100];
+    printf("Enter Infix Expression:");
+    gets(expr);
+    printf("Postfix Expression = %s\n", convertInfixtoPostfix(expr));
+    return 0;
+}
