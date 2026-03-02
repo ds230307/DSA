@@ -48,6 +48,32 @@ char* convertInfixtoPostfix(char* infixExp){
         return postfix;
     
 }
+void reverse(char* exp){
+    int len = strlen(exp);
+    for(int i = 0; i < len / 2; i++){
+        char temp = exp[i];
+        exp[i] = exp[len - i - 1];
+        exp[len - i - 1] = temp;
+    }
+}
+
+char* convertInfixtoPrefix(char* infixExp){
+    int len = strlen(infixExp);
+    char *temp = (char*) malloc(len + 1);
+    if(temp == NULL) return NULL;
+    strcpy(temp, infixExp);
+    reverse(temp);
+    for(int i = 0; i < len; i++){
+        if(temp[i] == '(')
+            temp[i] = ')';
+        else if(temp[i] == ')')
+            temp[i] = '(';
+    }
+    char *postfix = convertInfixtoPostfix(temp);
+    reverse(postfix);
+    free(temp);
+    return postfix;
+}
 char* convertPostfixtoInfix(char* postfixExp){
     char stack[100][100];
     int len  = strlen(postfixExp), top = -1;
@@ -95,6 +121,9 @@ int main(){
     printf("Enter Infix Expression:");
     gets(expr);
     printf("Postfix Expression = %s\n", convertInfixtoPostfix(expr));
+    printf("Enter Infix Expression:");
+    gets(expr);
+    printf("Prefix Expression = %s\n", convertInfixtoPrefix(expr));
     printf("Enter Postfix Expression:");
     gets(expr);
     printf("Infix Expression = %s\n", convertPostfixtoInfix(expr));
