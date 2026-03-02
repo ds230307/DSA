@@ -48,10 +48,34 @@ char* convertInfixtoPostfix(char* infixExp){
         return postfix;
     
 }
+char* convertPostfixtoInfix(char* postfixExp){
+    char stack[100][100];
+    int len  = strlen(postfixExp), top = -1;
+    for(int i=0; i<len; i++){
+        char ch = postfixExp[i];
+        if(isalnum(ch)){
+            char str[] = {ch, '\0'};   // convert character to string.
+            strcpy(stack[++top], str);
+        }
+        else if(ch=='+' || ch=='-' || ch=='*' || ch=='/' || ch=='^'){
+            char *s1 = stack[top--];
+            char *s2 = stack[top--];
+            char s3[100]="";
+            sprintf(s3, "(%s%c%s)", s2,ch,s1);  //for insertion of operator between operands.
+            strcpy(stack[++top], s3);
+        }
+    }
+    char *infix = (char*)malloc(strlen(stack[top])+1);  // run time value of stack top.
+    strcpy(infix, stack[top--]);
+    return infix;
+}
 int main(){
     char expr[100];
     printf("Enter Infix Expression:");
     gets(expr);
     printf("Postfix Expression = %s\n", convertInfixtoPostfix(expr));
+    printf("Enter Postfix Expression:");
+    gets(expr);
+    printf("Infix Expression = %s\n", convertPostfixtoInfix(expr));
     return 0;
 }
