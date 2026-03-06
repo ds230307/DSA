@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+#include <ctype.h>
+char re[100],op[100];
+int top1=-1,top2=-1;
+int pre(char ch){
+    switch(ch){
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+            default :
+            return 0;
+    }
+}
+void intopre(char* expr){
+    int len=strlen(expr);
+    for(int i=len-1;i>=0;i--){
+       if(isalnum(expr[i])){
+            re[++top1]=expr[i];
+        }
+        else if(expr[i]=='+'||expr[i]=='-'||expr[i]=='*'||expr[i]=='/'||expr[i]=='^'){
+            while(top2!=-1 && (pre(expr[i]) < pre(op[top2])||(pre(expr[i])==pre(op[top2]) && expr[i]=='^'))){
+                re[++top1]=op[top2--];
+            }
+            op[++top2]=expr[i];
+        }
+        else if(expr[i]==')'){
+            op[++top2]=expr[i];
+        }
+        else if(expr[i]=='('){
+            while(top2!=-1 && op[top2]!=')'){
+                re[++top1]=op[top2--];
+            }
+            top2--;
+        }
+    }
+    while(top2!=-1){
+        re[++top1]=op[top2--];
+    }
+    re[++top1]='\0';
+}
+void reverse(char *s){
+    int len = strlen(s);
+    for(int i = 0; i < len/2; i++){
+        char temp = s[i];
+        s[i] = s[len - i - 1];
+        s[len - i - 1] = temp;
+    }
+}
+int main() {
+ char expr[100];
+    gets(expr);
+    intopre(expr);
+    
+     reverse(re);   
+    printf("%s", re);
+
+    return 0;
+}
