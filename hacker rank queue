@@ -1,0 +1,74 @@
+#include<stdio.h>
+int front=-1,rear=-1;
+int isempty(){
+return front==-1;
+}
+void enqueue(int n,int* queue,int size){
+if(rear==size-1){
+    printf("Queue Overflow\n");
+    return ;
+}
+queue[++rear]=n;
+if(front==-1){
+    front=rear;
+}
+}
+int dequeue(int* queue){
+if(isempty()){
+    printf("Queue Underflow\n");
+    return -1;
+}
+else{int x=queue[front++];
+if(front>rear){
+    front=rear=-1;
+}
+return x;}
+}
+int peek(int* queue){
+    if(isempty()){
+        printf("Queue Underflow\n");
+        return -1;
+    }
+else{return queue[front];
+}}
+void display(int* queue){
+ if(isempty()){
+        printf("Queue is Empty\n");
+        return;
+    }
+
+    for(int i=front;i<=rear;i++){
+        printf("%d ",queue[i]);
+    }
+    printf("\n");
+}
+int main(){
+    int n,y,x;
+    int size,noq,op;
+    scanf("%d",&size);
+   int queue[size];
+    scanf("%d",&noq);
+    for(int i=0;i<noq;i++){
+    scanf("%d",&op);
+    switch(op){
+        case 1:
+        scanf("%d",&n);
+        enqueue(n,queue,size);
+        break;
+        case 2:
+        x = dequeue(queue);
+    if(x != -1)
+        printf("%d\n", x);
+    break;
+        case 3:
+       y = peek(queue);
+    if(y != -1)
+        printf("%d\n", y);
+    break;
+        case 4:
+        display(queue);
+        break;
+        
+    }}
+    return 0;
+}
