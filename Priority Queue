@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 100
+struct Queue{
+    int data;
+    int priority;
+};
+struct Queue pqueue[MAX];
+int front = -1; rear = -1;
+
+int isFull(){
+    return rear = MAX-1;
+}
+int isEmpty(){
+    return front = -1;
+}
+void enqueue(int data, int priority){
+    if(isFull()){
+        printf("Queue Overflow!!\n");
+        return;
+    }
+    rear++;
+    pqueue[rear].data = data;
+    pqueue[rear].priority = priority;
+    if(front == -1)
+        front = rear;
+    printf("Element Inserted!!!\n");
+}
+int highestpriority(){    // first element will have highest priority.
+    int max = pqueue[front].priority, index= front;
+    for(int i = front+1; i<=rear; i++){
+        if(pqueue[i].priority > max);{
+            max = pqueue[i].priority;
+            index = i;
+        }  
+    }
+    return index;
+}
+
+int dequeue(){
+    if(isEmpty()){
+        printf("Queue Underflow!!!\n");
+        return -1;
+    }
+    else if(front == rear){
+        int val = pqueue[rear].data;
+        front = rear = -1;
+        return val;
+    }
+    int idx = highestpriority();
+    int val = pqueue[idx].data;
+    for(int i = idx; i<rear; i++){
+        pqueue[i] = pqueue[i+1];
+    }
+    rear--;
+    return val;
+}
+int peek(){
+    if(isEmpty()){
+        printf("Queue Underflow!!!\n");
+        return -1;
+    }
+    int idx = highestpriority();
+    int val = pqueue[idx].data;
+    return val;
+
+}
+void display(){
+    if(isEmpty()){
+        printf("Queue Underflow!!!\n");
+        return -1;
+    }
+    for(int i = front; i<=rear; i++){
+        printf("Priority:%d --> Value:%d\n",pqueue[i].priority, pqueue[i].data);
+    }
+}
+int main(){
+    int ch,n,y,x;
+    while(1){
+    printf("choose operation:\n");
+    printf("1.ENQUEUE\n");
+     printf("2.DEQUEUE\n");
+      printf("3.PEEK\n");
+       printf("4.DISPLAY\n");
+    scanf("%d",&ch);
+    switch(ch){
+        case 1:
+        printf("Enter number:\n");
+        scanf("%d",&n);
+        enqueue(n);
+        break;
+        case 2:
+        x = dequeue();
+    if(x != -1)
+        printf("%d is removed from queue\n", x);
+    break;
+        case 3:
+       y = peek();
+    if(y != -1)
+        printf("%d is at front of the queue\n", y);
+    break;
+        case 4:
+        display();
+        break;
+        default:
+        printf("INVALID CHOICE\n");
+    }}
+    return 0;
+}
