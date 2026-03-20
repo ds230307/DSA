@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;    // link between elements(logical).
+};
+struct Node* head = NULL;
+struct Node* createnode(int data){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));  // node created and address of node stored in temp.
+    temp->data = data;  // stores data in node.
+    temp->next = NULL;
+    return temp;     // returns the address.
+}
+void inesrtinbeg(int data){
+    struct Node* newnode = createnode(data);
+    if(head == NULL){
+        head == newnode;
+    }
+    else{
+        newnode->next = head;
+        head = newnode;
+    }
+}
+int main (){
+     while(1){
+        printf("***Singly Linked List***\n");
+        printf("1.Insert in Beginning\n");
+        printf("2.Insert At End\n");
+        printf("3.Insert at Specified Position\n");
+        printf("4.Delete from Beginning\n");
+        printf("5.Delete from End\n");
+        printf("6.Delete from Specified Position\n");
+        printf("7.Display List\n");
+        printf("8.Search Element In List\n");
+        printf("9.Exit\n");
+        int choice, data, pos;
+        printf("Enter Choice:");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                printf("Enter data:");
+                scanf("%d", &data);
+                
+                break;
+            case 2:
+                printf("Enter data:");
+                scanf("%d", &data);
+                
+                break;
+            case 3:
+                printf("Enter position:");
+                scanf("%d", &pos);
+                scanf("%d", &data);
+                
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            case 6:
+                printf("Enter position:");
+                scanf("%d", &pos);
+                
+                break;
+            case 7:
+                
+                break;
+            case 8:
+
+                break;
+            case 9:
+               exit(0);
+               break;
+            default:
+                printf("Invalid Choice!!!\n");
+        }
+    }
+    return 0;
+}
