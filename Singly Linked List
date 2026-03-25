@@ -14,11 +14,64 @@ struct Node* createnode(int data){
 void inesrtinbeg(int data){
     struct Node* newnode = createnode(data);
     if(head == NULL){
-        head == newnode;
+        head = newnode;
     }
     else{
         newnode->next = head;
         head = newnode;
+    }
+}
+void insertatend(int data){
+    struct Node* newnode = createnode(data);
+    if(head == NULL){
+        head == newnode;
+    }
+    else{
+        struct Node* temp = head;
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        temp->next = newnode;
+    }
+    printf("Node inserted !!!\n");
+}
+void insertatanypos(int data, int pos){   // here position is 0-base.
+    if(head == NULL){
+        printf("List is Empty !!!\n");
+    }
+    else if(pos == 0){
+        inesrtinbeg(data);
+    }
+    else{
+        struct Node* temp = head;
+        int i=0;
+        while(temp != NULL){
+            if(i == pos-1)      // traverse until the previous node of the position is reached.
+                break;
+            temp = temp->next;
+            i++;
+        }
+        if(temp == NULL || temp->next == NULL){
+            printf("Invalid position !!!\n");
+        }
+        else{
+            struct Node* newnode = createnode(data);
+            newnode->next = temp->next;
+            temp->next = newnode;
+            printf("Node Inserted !!!\n");
+        }
+    }
+}
+void displaylist(){
+    if(head == NULL)
+        printf("List is Empty!!!\n");
+    else{
+        struct Node* temp = head;
+        while(temp != NULL){
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
     }
 }
 int main (){
@@ -40,18 +93,19 @@ int main (){
             case 1:
                 printf("Enter data:");
                 scanf("%d", &data);
-                
+                inesrtinbeg(data);
                 break;
             case 2:
                 printf("Enter data:");
                 scanf("%d", &data);
-                
+                insertatend(data);
                 break;
             case 3:
                 printf("Enter position:");
+                printf("Enter data:");
                 scanf("%d", &pos);
                 scanf("%d", &data);
-                
+                insertatanypos(data,pos);
                 break;
             case 4:
                 
@@ -65,7 +119,7 @@ int main (){
                 
                 break;
             case 7:
-                
+                displaylist();
                 break;
             case 8:
 
