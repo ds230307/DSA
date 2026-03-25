@@ -62,6 +62,14 @@ void insertatanypos(int data, int pos){   // here position is 0-base.
         }
     }
 }
+void deletefrombeg(){
+    if(head == NULL)
+        printf("List is Empty!!!\n");
+    else{
+        head = head->next;
+        printf("Node Deleted !!!\n");
+    }
+}
 void displaylist(){
     if(head == NULL)
         printf("List is Empty!!!\n");
@@ -108,7 +116,7 @@ int main (){
                 insertatanypos(data,pos);
                 break;
             case 4:
-                
+                deletefrombeg();
                 break;
             case 5:
                 
