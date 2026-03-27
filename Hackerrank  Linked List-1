@@ -1,0 +1,107 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node* next;
+};
+
+struct Node* head = NULL;
+
+struct Node* createnode(int data){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node)); 
+    temp->data = data; 
+    temp->next = NULL;
+    return temp;    
+}
+
+void insertinbeg(int data){
+    struct Node* newnode = createnode(data);
+    newnode->next = head;
+    head = newnode;
+}
+void insertatend(int data){
+    struct Node* newnode = createnode(data);
+    
+    if(head == NULL){
+        head = newnode;
+        return;
+    }
+    
+    struct Node* temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+
+void insertatpos(int data, int pos){
+    if(pos == 1){
+        insertinbeg(data);
+        return;
+    }
+
+    struct Node* temp = head;
+    for(int i = 1; i < pos-1 && temp != NULL; i++){
+        temp = temp->next;
+    }
+
+    if(temp == NULL) return;
+
+    struct Node* newnode = createnode(data);
+    newnode->next = temp->next;
+    temp->next = newnode;
+}
+
+void deleteatpos(int pos){
+    if(head == NULL) return;
+
+    if(pos == 1){
+        head = head->next;
+        return;
+    }
+
+    struct Node* temp = head;
+    for(int i = 1; i < pos-1 && temp->next != NULL; i++){
+        temp = temp->next;
+    }
+
+    if(temp->next == NULL) return;
+
+    temp->next = temp->next->next;
+}
+
+void display(){
+    struct Node* temp = head;
+    while(temp != NULL){
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+}
+
+int main(){
+    int n, x;
+
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++){
+        scanf("%d", &x);
+        insertatend(x);
+    }
+    int beginData;
+    scanf("%d", &beginData);
+    insertinbeg(beginData);
+    int delPos;
+    scanf("%d", &delPos);
+    deleteatpos(delPos);
+    int endData;
+    scanf("%d", &endData);
+    insertatend(endData);
+    int pos, data;
+    scanf("%d %d", &pos, &data);
+    insertatpos(data, pos);
+
+    display();
+
+    return 0;
+}
