@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+struct Node{
+    int data;
+    struct Node* next; 
+}; 
+struct Node* head = NULL; 
+struct Node* createNode(int data){
+    struct Node* temp = (struct Node*) malloc(sizeof(struct Node)); 
+    temp->data=data;
+    temp->next=NULL;
+    return temp; 
+}
+int main() {
+    int n,even=0,odd=0,tie=0;
+    scanf("%d", &n); 
+    struct Node* tail = NULL; 
+    for(int i=0; i<n; i++){
+        int val;
+        scanf("%d", &val); 
+        struct Node* newNode = createNode(val);  
+        if(head==NULL){
+            head = tail = newNode; 
+        } 
+        else{
+            tail->next = newNode;
+            tail = newNode; 
+        }
+    }
+    struct Node* temp = head; 
+    while(temp!=NULL){
+        if(temp->data>temp->next->data){
+            even++; 
+        }
+        else if(temp->data==temp->next->data){
+            tie++;
+        }
+        else{
+            odd++; 
+        }
+        temp=temp->next->next; 
+    }
+    if(even>odd && even>tie){
+        printf("Even");
+    }
+    else if(odd>even && odd>tie){
+        printf("Odd");
+    }
+    else{
+        printf("Tie"); 
+    }
+    return 0;
+}
