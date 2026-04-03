@@ -72,14 +72,75 @@ void insertatanypos(int data, int pos){   // here position is 0-base.
     }
 }
 void deletefrombeg(){
-    
+    void deletefrombeg(){
+    if(head == NULL){
+        printf("List is Empty !!\n");
+        return;
+    }
+    if(head->next == head){
+        free(head);
+        head = NULL;
+    }
+    else{
+        struct Node* temp = head;
+        struct Node* last = head;
+        while(last->next != head){
+            last = last->next;
+        }
+        head = head->next;
+        last->next = head;
+        free(temp);
+    }
+    printf("Node Deleted from Beginning !!!\n");
+}
 }
 void deletefromend(){
-    
+    void deletefromend(){
+    if(head == NULL){
+        printf("List is Empty !!\n");
+        return;
+    }
+    if(head->next == head){
+        free(head);
+        head = NULL;
+    }
+    else{
+        struct Node* temp = head;
+        struct Node* prev = NULL;
+        while(temp->next != head){
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = head;
+        free(temp);
+    }
+    printf("Node Deleted from End !!!\n");
+}
 }
 void deletefromanypos(int pos){  // position is 0-base.
-    
-
+    if(head == NULL){
+        printf("List is Empty !!\n");
+        return;
+    }
+    if(pos == 0){
+        deletefrombeg();
+        return;
+    }
+    struct Node* temp = head;
+    struct Node* prev = NULL;
+    int i = 0;
+    while(i != pos){
+        prev = temp;
+        temp = temp->next;
+        i++;
+        if(temp == head){
+            printf("Invalid Position !!!\n");
+            return;
+        }
+    }
+    prev->next = temp->next;
+    free(temp);
+    printf("Node Deleted from Position %d !!!\n", pos);
 }
 void search(int value){
       if(head == NULL){
