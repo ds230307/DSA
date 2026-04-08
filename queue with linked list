@@ -1,0 +1,92 @@
+#include<stdio.h>
+struct node{
+    int data;
+    struct node* next;
+};
+struct node* front=NULL;
+struct node* rear=NULL;
+void enqueue(int data){
+struct node* temp = (struct node*)malloc(sizeof(struct node));
+    if(temp == NULL){
+      printf("queue overflow\n");
+    }
+    else{
+         temp->data=data;
+        temp->next=NULL;
+        if(front==NULL &&rear==NULL){
+            front =rear=temp;
+        }
+        else{
+            rear->next = temp;
+            rear=temp;
+        }
+        printf("%d push into queue\n",data);
+    }
+}
+int dequeue(){
+if(front==NULL && rear==NULL){
+    printf("queue underflow");
+}
+else{
+int val = front->data;
+       front = front->next;
+       if(front ==NULL){
+        rear=front;
+       }
+       return val;
+}
+}
+int peek(){
+   if(front==NULL && rear==NULL){
+    printf("queue underflow");
+}
+else{
+return front->data;
+    }
+}
+void display(){
+ if(front==NULL)
+ printf("queue is empty");
+
+ else{
+    struct node* temp=front;
+    while(temp!=NULL){
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    printf("\n");
+ }
+}
+int main(){
+    int ch,n,y,x;
+    while(1){
+    printf("choose operation:\n");
+    printf("1.ENQUEUE\n");
+     printf("2.DEQUEUE\n");
+      printf("3.PEEK\n");
+       printf("4.DISPLAY\n");
+    scanf("%d",&ch);
+    switch(ch){
+        case 1:
+        printf("Enter number:\n");
+        scanf("%d",&n);
+        enqueue(n);
+        break;
+        case 2:
+        x = dequeue();
+    if(x != -1)
+        printf("%d is removed from queue\n", x);
+    break;
+        case 3:
+       y = peek();
+    if(y != -1)
+        printf("%d is at front of the queue\n", y);
+    break;
+        case 4:
+        display();
+        break;
+        default:
+        printf("INVALID CHOICE\n");
+    }}
+    return 0;
+}
