@@ -43,7 +43,7 @@ void show(){
     else{
         struct Node* temp = top;
         while(temp != NULL){
-            printf("%d\n", temp->data);
+            printf("%d ", temp->data);
             temp = temp->next;
         }
     }
@@ -63,7 +63,7 @@ int choice, value, pos;
             case 1:
                 printf("Enter value:");
                 scanf("%d", &value);
-                push(val);
+                push(value);
                 break;
             case 2:
                 res = pop();
@@ -71,7 +71,7 @@ int choice, value, pos;
                 printf("\n%d pop from the stack.\n", res);
                 break;
             case 3:
-                res = peek;
+                res = peek();
                 if(res!=-1)
                 printf("\n %d is available at top of the Stack.\n", res);
                 break;
