@@ -1,0 +1,134 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    int priority;
+    struct node* next;
+};
+struct node* front = NULL;
+struct node* rear = NULL;
+void enqueue(int data, int priority){
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    if(temp == NULL){
+      printf("Queue overflow !!!\n");
+    }
+    else{
+        temp->data = data;
+        temp->priority = priority;
+        temp->next = NULL;
+        if(front == NULL && rear == NULL){
+            front = rear = temp;
+        }
+        else{
+            rear->next = temp;
+            rear = temp;
+        }
+        printf("%d pushed into queue\n",data);
+    }
+}
+struct node* gethigh(){
+    struct node *curr = front, *prev = NULL, *temp = NULL;
+    int max = 0;
+    while(curr != NULL){
+        if(curr->priority > max){
+            max = curr->priority;
+            temp = prev;
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+    return temp;
+}
+int dequeue(){
+    if(front == NULL && rear == NULL){
+        printf("Queue underflow !!!\n");
+        return -1;
+    }
+    else if(front == rear ){
+        int val = front->data;
+        front = rear = NULL;
+        return val;
+    }
+    else{
+        struct node* temp = gethigh();
+        int val;
+        if(temp == NULL){
+            val = front->data;
+            front = front->next;
+        }
+        else{
+            val = temp->next->data;
+            temp->next = temp->next->next;
+        }
+        return val;  
+    }
+}
+int peek(){
+  if(front == NULL && rear == NULL){
+        printf("Queue underflow !!!\n");
+        return -1;
+    }
+    else if(front == rear ){
+        int val = front->data;
+        front = rear = NULL;
+        return val;
+    }
+    else{
+        struct node* temp = gethigh();
+        int val;
+        if(temp == NULL){
+            val = front->data;
+        }
+        else{
+            val = temp->next->data;
+        }
+        return val;  
+    }
+}
+void display(){
+  if(front == NULL && rear == NULL)
+    printf("Queue is empty !!!\n");
+ else{
+    struct node* temp=front;
+    while(temp!=NULL){
+        printf("Prority : %d --> Value : %d\n",temp->priority,temp->data);
+        temp=temp->next;
+    }
+    printf("\n");
+ }
+}
+int main(){
+    int ch,n,y,x,priority;
+    while(1){
+    printf("choose operation:\n");
+    printf("1.ENQUEUE\n");
+    printf("2.DEQUEUE\n");
+    printf("3.PEEK\n");
+    printf("4.DISPLAY\n");
+    scanf("%d",&ch);
+    switch(ch){
+        case 1:
+        printf("Enter number: ");
+        scanf("%d",&n);
+        printf("Enter priority: ");
+        scanf("%d",&priority);
+        enqueue(n,priority);
+        break;
+        case 2:
+        x = dequeue();
+    if(x != -1)
+        printf("%d is removed from queue\n", x);
+    break;
+        case 3:
+       y = peek();
+    if(y != -1)
+        printf("%d is at front of the queue\n", y);
+    break;
+        case 4:
+        display();
+        break;
+        default:
+        printf("INVALID CHOICE\n");
+    }}
+    return 0;
+}
