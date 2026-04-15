@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max 100
+int tree[max];
+void initTree(){
+    for(int i=0; i<max; i++){
+        tree[i] = -1;
+    }
+}
+void insert(int index, int val){      // insertion using level oreder.
+    if(index >= max)
+        printf("Cannot insert node !!!\n");
+    else if(tree[index] == -1){
+        tree[index] = val;
+    }
+    else if(val < tree[index])
+        insert(2*index+1, val);
+    else
+        insert(2*index+2, val);
+}
+void preorder(int index){
+    if(index >= max || tree[index] == -1)
+        return;
+    printf("%d ", tree[index]);
+    preorder(2*index+1);
+    preorder(2*index+2);
+}
+void inorder(int index){
+    if(index >= max || tree[index] == -1)
+        return;
+    inorder(2*index+1);
+    printf("%d ", tree[index]);
+    inorder(2*index+2);
+}
+void postorder(int index){
+    if(index >= max || tree[index] == -1)
+        return;
+    postorder(2*index+1);
+    postorder(2*index+2);
+    printf("%d ", tree[index]);
+}
+
+int main (){
+    int choice, value;
+    initTree();
+    while(1){
+        printf("\n****Binary Search Tree Menu****\n");
+        printf("1. Insert\n");
+        printf("2. Pre-Order Traversal\n");
+        printf("3. In-Order Traversal\n");
+        printf("4. Post-Order Traversal\n");
+        printf("5.Exit\n");
+        printf("Enter Choice : ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insert(0, value);
+                break;
+            case 2:
+                preorder(0);
+                break;
+            case 3:
+                inorder(0);
+                break;
+            case 4:
+                postorder(0);
+                break;
+            case 5:
+                exit(0);
+            default: 
+                printf("Invalid Choice !!!\n");
+        }
+    }
+    return 0;
+}
