@@ -66,9 +66,9 @@ int main (){
     while(1){
         printf("\n****Binary Tree Menu****\n");
         printf("1. Insert\n");
-        printf("2. Pre-Order Transversal\n");
-        printf("3. In-Order Transversal\n");
-        printf("4. Post-Order Transversal\n");
+        printf("2. Pre-Order Traversal\n");
+        printf("3. In-Order Traversal\n");
+        printf("4. Post-Order Traversal\n");
         printf("5.Exit\n");
         printf("Enter Choice : ");
         scanf("%d", &choice);
