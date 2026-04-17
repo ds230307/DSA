@@ -42,6 +42,17 @@ void postorder(node* root){
     postorder(root->right);
     printf("%d ", root->data);
 }
+node* delete(node* root, int val){
+    if(root == NULL)
+        return NULL;
+    if(val < root->data)
+        root->left = delete(root->left, val);
+    else if(val > root->data)
+        root->right = delete(root->right, val);
+    else{
+        
+    }
+}    
 
 int main (){
     int choice, value;
@@ -52,7 +63,8 @@ int main (){
         printf("2. Pre-Order Traversal\n");
         printf("3. In-Order Traversal\n");
         printf("4. Post-Order Traversal\n");
-        printf("5.Exit\n");
+        printf("5. Deletion\n");
+        printf("6. Exit\n");
         printf("Enter Choice : ");
         scanf("%d", &choice);
         switch(choice){
@@ -71,6 +83,10 @@ int main (){
                 postorder(root);
                 break;
             case 5:
+                printf("Element to be Deleted: ");
+                scanf("%d", &value);
+                break;
+            case 6:
                 exit(0);
             default: 
                 printf("Invalid Choice !!!\n");
